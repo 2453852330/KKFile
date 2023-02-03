@@ -45,6 +45,15 @@ class KKFILE_API UKKFileBlueprintFunctionLibrary : public UBlueprintFunctionLibr
 	UFUNCTION(BlueprintCallable,Category="KKFile|FileHelper")
 	static bool KK_SaveStringArrayToFile(UPARAM(ref) const TArray<FString> & Data,FString FilePath);
 
-
-	
+	/*************************************** CSV Data *************************************/
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category="KKFile|CSV")
+	static TArray<FKKCsvDataLine> KK_LoadCSVDataFromFile(FString FilePath);
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category="KKFile|CSV")
+	static FString KK_GetValueFromData_String(UPARAM(ref) const FKKCsvDataLine & Data,int32 Index);
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category="KKFile|CSV")
+	static int32 KK_GetValueFromData_Int(UPARAM(ref) const FKKCsvDataLine & Data,int32 Index);
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category="KKFile|CSV")
+	static float KK_GetValueFromData_Float(UPARAM(ref) const FKKCsvDataLine & Data,int32 Index);
+	UFUNCTION(BlueprintCallable,BlueprintPure,Category="KKFile|CSV")
+	static bool KK_GetValueFromData_Bool(UPARAM(ref) const FKKCsvDataLine & Data,int32 Index);
 };

@@ -89,3 +89,63 @@ bool UKKFileBlueprintFunctionLibrary::KK_SaveStringArrayToFile(const TArray<FStr
 	return FFileHelper::SaveStringArrayToFile(Data,*FilePath);
 }
 
+/*************************************** csv file *************************************/
+TArray<FKKCsvDataLine> UKKFileBlueprintFunctionLibrary::KK_LoadCSVDataFromFile(FString FilePath)
+{
+	TArray<FKKCsvDataLine> tmp;
+	TArray<FString> tmp_data;
+	FFileHelper::LoadFileToStringArray(tmp_data,*FilePath);
+	if (tmp_data.Num() >= 1)
+	{
+		for (int i = 1 ; i < tmp_data.Num() ; ++i)
+		{
+			tmp.Add(FKKCsvDataLine(tmp_data[i]));
+		}
+	}
+	return tmp;
+}
+
+FString UKKFileBlueprintFunctionLibrary::KK_GetValueFromData_String(const FKKCsvDataLine& Data, int32 Index)
+{
+	TArray<FString> tmp;
+	Data.Data.ParseIntoArray(tmp,TEXT(","),false);
+	if (Index >=0 && Index < tmp.Num())
+	{
+		return tmp[Index];
+	}
+	return TEXT("");
+}
+
+int32 UKKFileBlueprintFunctionLibrary::KK_GetValueFromData_Int(const FKKCsvDataLine& Data, int32 Index)
+{
+	TArray<FString> tmp;
+	Data.Data.ParseIntoArray(tmp,TEXT(","),false);
+	if (Index >=0 && Index < tmp.Num())
+	{
+		return FCString::Atoi(*tmp[Index]);
+	}
+	return 0;
+}
+
+float UKKFileBlueprintFunctionLibrary::KK_GetValueFromData_Float(const FKKCsvDataLine& Data, int32 Index)
+{
+	TArray<FString> tmp;
+	Data.Data.ParseIntoArray(tmp,TEXT(","),false);
+	if (Index >=0 && Index < tmp.Num())
+	{
+		return FCString::Atof(*tmp[Index]);
+	}
+	return 0;
+}
+
+bool UKKFileBlueprintFunctionLibrary::KK_GetValueFromData_Bool(const FKKCsvDataLine& Data, int32 Index)
+{
+	TArray<FString> tmp;
+	Data.Data.ParseIntoArray(tmp,TEXT(","),false);
+	if (Index >=0 && Index < tmp.Num())
+	{
+		return tmp[Index].Equals(TEXT("true"),ESearchCase::IgnoreCase);
+	}
+	return false;
+}
+

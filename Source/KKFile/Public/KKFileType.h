@@ -12,3 +12,12 @@ enum class EKKFilePath : uint8
 	EProjectUserDir,
 	EMax
 };
+
+USTRUCT(BlueprintType)
+struct FKKCsvDataLine
+{
+	GENERATED_USTRUCT_BODY()
+	FString Data;
+	FKKCsvDataLine(FString InData):Data(InData){}
+	FKKCsvDataLine(){}
+};
